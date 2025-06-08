@@ -1,1 +1,51 @@
+# Suricata Alert Log Sample
+# Generated during simulated Nmap scan on VLAN 10 (IoT) device
+# Date: 2025-04-27
 
+04/27/2025-13:44:12.315498  [**] [1:2024094:3] ET SCAN Nmap -sS window scan [**] 
+[Classification: Attempted Information Leak] [Priority: 2] 
+{TCP} 192.168.10.102:45218 -> 192.168.20.1:80
+
+04/27/2025-13:44:13.162521  [**] [1:2010935:2] ET POLICY Outbound DNS Lookup for Suspicious Domain [**] 
+[Classification: Potentially Bad Traffic] [Priority: 2] 
+{UDP} 192.168.10.102 -> 8.8.8.8:53
+
+04/27/2025-13:44:15.492084  [**] [1:2006373:4] ET TROJAN Possible Backdoor Activity Detected [**] 
+[Classification: A Network Trojan was Detected] [Priority: 1] 
+{TCP} 192.168.30.5:4444 -> 192.168.20.10:3389
+
+
+# Nessus Vulnerability Scan Summary
+# Scanned: VLAN 10 (IoT device)
+# Date: 2025-04-27
+
+Target: 192.168.10.50
+
+Top Vulnerabilities Found:
+--------------------------------------------------
+Plugin ID: 33850
+Name: Microsoft SMBv1 Enabled
+Severity: High
+Description: SMBv1 protocol is enabled on the target system, which is known to be vulnerable to EternalBlue and other exploits.
+Recommendation: Disable SMBv1 in Windows Features.
+
+Plugin ID: 19506
+Name: Nessus Scan Information
+Severity: Info
+Description: Basic scan metadata for asset discovery.
+
+Plugin ID: 10035
+Name: Open Telnet Port Detected
+Severity: Medium
+Description: Telnet service is enabled on the device, allowing potential unauthenticated access.
+Recommendation: Disable Telnet and use SSH if necessary.
+
+# Sample pfSense Firewall Log
+# Extracted from Status > System Logs > Firewall
+# Date: 2025-04-27
+
+Action,Source IP,Destination IP,Protocol,Port
+BLOCK,192.168.10.50,192.168.20.102,TCP,80
+BLOCK,192.168.30.1,192.168.20.10,UDP,53
+ALLOW,192.168.20.100,8.8.8.8,ICMP,N/A
+BLOCK,192.168.10.55,192.168.10.1,ICMP,N/A
